@@ -42,8 +42,7 @@ def main():
     plt.xlabel("Taille de la matrice")
     plt.ylabel("Temps d'exécution (secondes)")
     plt.title("Comparaison des temps d'exécution entre Jacobi et Gauss-Seidel")
-    plt.show("figure1")
-
+    plt.show()
 
 if __name__ == "__main__":
     main()
