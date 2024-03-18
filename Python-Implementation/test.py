@@ -10,7 +10,7 @@ def test_method(method, matrix_sizes):
 
     for size in matrix_sizes:
         runtimes = []
-        b = np.ones(size)
+        b = np.random.rand(size)
         matrix = np.random.rand(size, size)
 
         for _ in range(5): 
@@ -33,21 +33,16 @@ def main():
     avg_times_Jacobi = test_method(Jacobi, matrix_sizes)
     avg_times_GS = test_method(GS, matrix_sizes)
 
-    x = matrix_sizes
-    #y1 = avg_times_Jacobi
-    y2 = avg_times_GS
+    smoothed_y1 = np.convolve(avg_times_Jacobi, np.ones(3), mode='same') / 3
+    smoothed_y2 = np.convolve(avg_times_GS, np.ones(3), mode='same') / 3
 
-    #smoothed_y1 = np.convolve(y1, np.ones(3), mode='same') / 3
-    smoothed_y2 = np.convolve(y2, np.ones(3), mode='same') / 3
-
-    #plt.plot(x, smoothed_y1, label="Données lissées Jacobi")
-    plt.plot(x, smoothed_y2, label="Données lissées Gauss-Seidel")
-
-    plt.legend()
+    plt.plot(matrix_sizes, smoothed_y1, label='Jacobi')
+    plt.plot(matrix_sizes, smoothed_y2, label='Gauss-Seidel')
+    plt.legend() 
     plt.xlabel("Taille de la matrice")
     plt.ylabel("Temps d'exécution (secondes)")
-
-    plt.show()
+    plt.title("Comparaison des temps d'exécution entre Jacobi et Gauss-Seidel")
+    plt.show("figure1")
 
 
 if __name__ == "__main__":
