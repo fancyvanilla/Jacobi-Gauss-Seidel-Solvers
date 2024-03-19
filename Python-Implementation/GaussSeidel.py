@@ -1,13 +1,14 @@
 import numpy as np
 
-
 def generate_diagonally_dominant(matrix,size):
     for i in range(size):
         row_sum = np.sum(np.abs(matrix[i, :])) - np.abs(matrix[i, i]) 
         matrix[i, i] += row_sum * 1.1  
     return matrix
 
+
 def GS(matrix, n, b, tolerance=1e-8,omega=1):
+    matrix=generate_diagonally_dominant(matrix,n) #ensures that the matrix will converge
     sol = np.zeros(n)
     it = 0
     try:
@@ -30,5 +31,4 @@ def GS(matrix, n, b, tolerance=1e-8,omega=1):
     except Exception as e:
         print(f"Error occurred: {e}")
         print(f"Iterations completed: {it}")
-
 
